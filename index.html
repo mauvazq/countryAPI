@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country API</title>
+    <link rel="stylesheet" href="style.css">
+
+    
+</head>
+<body class="dark">
+    <header class="navbar" >
+        <h1>Where in the world? </h1>
+        <button id="darkMode"  onclick="switchMode()">🌒 Dark Mode</button>
+    </header>
+
+    <div id="searchDiv" class="searchDiv">
+        <input type="text" id="search" placeholder="🔍 Search for a country...">
+        <div class="menu">
+            <button style="margin: 3px 0;" class="menuButt">Filter by Region. v</button>
+            <div class="submenu">
+                <button class="menuButt " onclick="fetchAll()">All</button>
+                <button class="menuButt " onclick="fetchRegion('Africa')">Africa</button>
+                <button class="menuButt " onclick="fetchRegion('Americas')">America</button>
+                <button class="menuButt " onclick="fetchRegion('Asia')">Asia</button>
+                <button class="menuButt " onclick="fetchRegion('Europe')">Europe</button>
+                <button class="menuButt " onclick="fetchRegion('Oceania')">Oceania</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="countryDiv" class="countryDiv">
+
+        
+
+    </div>
+    
+    <div id="detailDiv" class="invisible">
+
+        <div id="backBtn" class="searchDiv">
+            <button class="detailButton" onclick="backBtn()"> ↩️ Back </button>
+        </div>
+
+        <div class="detailDiv">
+            <div id="countryDetail" class="countryDetail">
+                
+    
+            </div>
+    
+            <div id="borderCountries" class="borderCountries">
+                <p><strong>Border Countries:</strong></p>
+                <button class="detailButton" onclick="detailFetch()">Code</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    
+</body>
+<script src="script.js">
+
+
+
+</script>
+</html>
