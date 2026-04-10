@@ -10,6 +10,16 @@ const switchMode = () => {
 
 }
 
+const input = document.getElementById('search')
+
+    
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            const value = document.getElementById('search').value.trim()
+            detailNameFetch(value)
+  }
+});
+
 const countryContainer = document.getElementById('countryDiv')
 const detailDiv = document.getElementById('detailDiv')
 
@@ -157,6 +167,71 @@ async function detailFetch(cca3){
     
 }
 
+async function detailNameFetch(name){
+    
+    countryContainer.classList.remove('countryDiv')
+    countryContainer.classList.add('invisible')
+
+    document.getElementById('detailDiv').classList.remove('invisible')
+    document.getElementById('detailDiv').classList.add('hideDetailDiv')
+    
+    document.getElementById('searchDiv').classList.remove('searchDiv')
+    document.getElementById('searchDiv').classList.add('invisible')
+
+
+    
+    const response = await fetch(`https://restcountries.com/v3.1/name/${name}`)
+    
+    if(!response.ok){
+        throw new Error("Hay un error en el detailfetch")
+    }
+    const data = await response.json()
+    const country = data[0]
+
+
+    const countryDetail = document.getElementById('countryDetail') 
+    const nativeName = Object.values(country.name.nativeName)[0].common;
+    const currencies = Object.values(country.currencies)[0].name;
+    const languages = Object.values(country.languages).join(", ");
+    countryDetail.innerHTML =  
+    `
+                    <img src="${country.flags.png}" alt="">
+        
+                    <div>
+                        <h2>${country.name.common}</h2>
+                        <div class="columns">
+                            <p><strong>Native Name: </strong>${nativeName}</p>
+                            <p><strong>Population: </strong>${country.population}</p>
+                            <p><strong>Region: </strong>${country.region}</p>
+                            <p><strong>Sub Region: </strong>${country.subregion}</p>
+                            <p><strong>Capital: </strong>${country.capital?.[0] ?? "No tiene capital"}</p>
+                            <p><strong>Top level Domain: </strong>${country.tld[0]}</p>
+                            <p><strong>Currencies: </strong>${currencies}</p>
+                            <p><strong>Languajes: </strong>${languages}</p>
+
+                        </div>
+                    </div>
+    `
+
+    let borderCountries = document.getElementById('borderCountries')
+
+    borderCountries.innerHTML= 
+    `
+    <p><strong>Border Countries:</strong></p>
+    `
+    
+    country.borders.forEach(element => {
+        borderCountries.innerHTML +=
+        `
+        <button class="detailButton" onclick="detailFetch('${element}')">${element}</button>
+        `
+    });
+    
+    
+    
+    
+    
+}
 
 async function backBtn() {
     
